@@ -1,23 +1,25 @@
 #!/bin/bash
 
-export PROJECT_ID='devops-test1-1051'
-export SERVICE_NAME='helloevite'
-export GCLOUD_REGION=us-central1
+set -e
 
-echo 'Setting region...'
+export PROJECT_ID='devops-test1-1420'
+export SERVICE_NAME='hello-evite'
+export GCLOUD_REGION='us-central1'
+
+docker build -t ${SERVICE_NAME} .
+
+echo "Setting region to ${GCLOUD_REGION}..."
 gcloud config set run/region $GCLOUD_REGION
 
-echo 'Setting project...'
-gcloud config set project ${PROJECT_ID}
+echo "Setting project ID to ${PROJECT_ID}..."
+gcloud config set project $PROJECT_ID
 
 echo 'Enabling API services...'
 gcloud services enable run.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
 
 echo 'Building...'
-status=$?
-build="gcloud builds submit --tag gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
-status=$?
+gcloud builds submit --tag gcr.io/${PROJECT_ID}/${SERVICE_NAME}
 
 if [ $? -eq 0 ]
 then
