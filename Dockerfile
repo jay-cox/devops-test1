@@ -9,6 +9,7 @@ RUN pip install gunicorn
 RUN pip install --upgrade pytest
 
 COPY app/ /app/
+COPY tests/ /tests/
 
 RUN pytest tests/
 
