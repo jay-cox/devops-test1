@@ -6,8 +6,6 @@ export PROJECT_ID='devops-test1-1420'
 export SERVICE_NAME='hello-evite'
 export GCLOUD_REGION='us-central1'
 
-docker build -t ${SERVICE_NAME} .
-
 echo "Setting region to ${GCLOUD_REGION}..."
 gcloud config set run/region $GCLOUD_REGION
 
